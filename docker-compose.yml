@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+  mongo:
+    image: mvertes/alpine-mongo:latest
+  redis:
+    image: redis:alpine
+  integration-plugin-server:
+    image: integration-plugin-server:latest
+    build: ./integration-plugin-server
+    volumes:
+      - package-files-volume:/package-files
+    environment:
+      SERVER_INSTANCE_COUNT: 2
+      SERVER_PORT: 8000
+      SERVER_HOSTNAME: integration-plugin-server
+    ports:
+      - 8000:8000
+  integration-worker:
+    image: integration-worker:latest
+    build: ./integration-worker
+    volumes:
+      - packages-volume:/packages
+    environment:
+      SERVER_INSTANCE_COUNT: 4
+      SERVER_PORT: 9000
+    ports:
+      - 9000:9000
+
+volumes:
+  package-files-volume:
+  packages-volume:
