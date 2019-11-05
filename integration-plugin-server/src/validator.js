@@ -1,16 +1,27 @@
-const { Joi } = require('celebrate');
+const Joi = require('@hapi/joi');
 
-const newPlugin = Joi.object({
-  body: Joi.object().keys({
-    name: Joi.string().required(),
-  }),
+const pluginSchema = {
+  body: Joi.object()
+    .keys({
+      name: Joi.string().required(),
+    })
+    .unknown(),
   file: Joi.object()
     .keys({
       filename: Joi.string().required(),
     })
-    .unknown(),
-}).unknown();
+    .unknown()
+    .required(),
+};
+
+function pluginValidator(req, res, next) {
+  const result = Joi.object(pluginSchema).validate({ body: req.body, file: req.file });
+  if (result.error) {
+    return res.status(400).send(result.error.annotate());
+  }
+  return next();
+}
 
 module.exports = {
-  newPlugin,
+  newPlugin: pluginValidator,
 };

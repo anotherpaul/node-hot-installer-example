@@ -1,6 +1,5 @@
 const express = require('express');
 const multer = require('multer');
-const { celebrate, errors } = require('celebrate');
 const mongoose = require('mongoose');
 const Redis = require('ioredis');
 
@@ -33,8 +32,7 @@ async function startApp() {
   server.use(express.static(config.filePath));
 
   server.get('/plugins', handlers.listPlugins);
-  server.post('/plugins', uploadMiddleware, celebrate(validators.newPlugin), handlers.newPlugin);
-  server.use(errors());
+  server.post('/plugins', uploadMiddleware, validators.newPlugin, handlers.newPlugin);
 
   server.listen(config.server.port, () => console.log(`integration-api listening on ${config.server.port}`));
 }

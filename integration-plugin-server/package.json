@@ -41,7 +41,7 @@
     "printWidth": 120
   },
   "dependencies": {
-    "celebrate": "^10.0.1",
+    "@hapi/joi": "^16.1.7",
     "express": "^4.17.1",
     "ioredis": "^4.14.1",
     "mongoose": "^5.7.7",

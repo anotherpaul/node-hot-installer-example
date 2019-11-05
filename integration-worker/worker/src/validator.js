@@ -1,14 +1,14 @@
-const { Joi } = require('celebrate');
+const { celebrate, Joi } = require('celebrate');
 
-const command = Joi.object({
+const command = {
   body: Joi.object()
     .keys({
       plugin: Joi.string().required(),
       data: Joi.object().required(),
     })
     .unknown(),
-}).unknown();
+};
 
 module.exports = {
-  command,
+  command: celebrate(command),
 };

@@ -1,7 +1,7 @@
 const Redis = require('ioredis');
 const express = require('express');
 const bodyParser = require('body-parser');
-const { celebrate, errors } = require('celebrate');
+const { errors } = require('celebrate');
 const config = require('./config');
 const createWorker = require('./worker');
 const validator = require('./validator');
@@ -18,14 +18,19 @@ async function startServer() {
   const server = express();
   server.use(bodyParser.json());
 
-  server.post('/command', celebrate(validator.command), async (req, res) => {
+  server.post('/command', validator.command, async (req, res) => {
     try {
-      const results = await worker.execute({ data: req.body.data, plugin: req.body.plugin });
-      res.status(200).json(results);
+      const plugin = worker.getPlugin(req.body.plugin);
+      if (!plugin) {
+        return res.status(404).send(`plugin ${plugin} was not found`);
+      }
+      const results = await plugin.execute(req.body.data);
+      return res.status(200).json(results);
     } catch (err) {
-      res.status(500).send(err);
+      return res.status(500).send(err);
     }
   });
+
   server.use(errors());
   server.listen(config.server.port, () => console.log(`worker listens on ${config.server.port}!`));
 }

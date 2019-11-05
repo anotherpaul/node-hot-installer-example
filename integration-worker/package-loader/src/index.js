@@ -6,7 +6,7 @@ const config = require('./config');
 const createHandlers = require('./handlers');
 
 async function startServer() {
-  const hotInstaller = await createHotInstaller(config.installPath);
+  const hotInstaller = await createHotInstaller({ installPath: config.installPath });
   const redisSubscribeClient = await new Redis(config.redisConfig);
   const redisPublishClient = await new Redis(config.redisConfig);
 

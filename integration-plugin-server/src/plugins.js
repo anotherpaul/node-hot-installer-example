@@ -8,9 +8,14 @@ function createPluginsStorage({ mongoose }) {
   );
   const Plugin = mongoose.model('plugins', schema);
 
-  function create(payload) {
-    const plugin = new Plugin(payload);
-    return plugin.save();
+  async function create(payload) {
+    const existingPlugin = await Plugin.findOne({ name: payload.name }).exec();
+    if (!existingPlugin) {
+      const plugin = new Plugin(payload);
+      return plugin.save();
+    }
+    existingPlugin.packageUrl = payload.packageUrl;
+    return existingPlugin.save();    
   }
 
   function getByName(name) {

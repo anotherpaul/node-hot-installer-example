@@ -50,7 +50,7 @@ function createHandlers({ redisClient, hotInstaller }) {
     console.log('getting package list from package server...');
     const serverPackages = await request({
       method: 'GET',
-      uri: `http://${config.packageServer.host}:${config.packageServer.port}/packages`,
+      uri: `${config.packageServerUrl}/plugins`,
       json: true,
     });
 

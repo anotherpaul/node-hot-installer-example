@@ -13,7 +13,7 @@ function createWorker({ redisClient }) {
 
   async function init() {
     redisClient.on('message', (channel, message) => {
-      if (channel === config.redis.channels.update) {
+      if (channel === config.newInstalledPluginChannel) {
         try {
           console.log(`received ${message}`);
           const packageInfo = JSON.parse(message);
@@ -24,25 +24,23 @@ function createWorker({ redisClient }) {
       }
     });
 
-    redisClient.subscribe(config.redis.channels.update);
+    redisClient.subscribe(config.newInstalledPluginChannel);
     const packageList = await request({
       method: 'GET',
-      uri: `http://${config.loader.host}:${config.loader.port}/packages`,
+      uri: `${config.loaderUrl}/packages`,
       json: true,
     });
     console.log('received package list from package loader');
     packageList.forEach(loadPackage);
   }
 
-  function execute({ data, plugin }) {
-    const rejectFunction = () => Promise.reject(new Error(`plugin ${plugin} was not found`));
-    const fn = plugins[plugin].execute || rejectFunction;
-    return fn(data);
+  function getPlugin(plugin) {
+    return plugins[plugin];
   }
 
   return {
     init,
-    execute,
+    getPlugin,
   };
 }
 

@@ -2,7 +2,7 @@ const { env } = process;
 
 module.exports = {
   server: {
-    hostname: env.SERVER_HOSTNAME || 'localhost',
+    hostname: env.SERVER_HOSTNAME || 'integration-plugin-server',
     port: parseInt(env.SERVER_PORT, 10) || 8000,
   },
   mongoConnectionString: env.MONGO_CONNECTION_STRING || 'mongodb://mongo:27017/test',

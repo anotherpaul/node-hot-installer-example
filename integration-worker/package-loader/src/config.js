@@ -9,4 +9,5 @@ module.exports = {
   newInstalledPluginChannel: env.NEW_INSTALLED_PLUGIN_CHANNEL || 'new_installed_plugin',
   installPath: env.PACKAGE_INSTALL_PATH || '/packages',
   installInterval: parseInt(env.INSTALL_INTERVAL || '1000', 10),
+  packageServerUrl: env.PACKAGE_SERVER_URL || 'http://integration-plugin-server:8000',
 };

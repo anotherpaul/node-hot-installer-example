@@ -26,6 +26,17 @@ services:
       SERVER_PORT: 9000
     ports:
       - 9000:9000
+  integration-ui:
+    image: integration-ui:latest
+    build: ./integration-ui
+    environment:
+      PROXY_HTTP_PORT: 80
+      PROXY_HOSTNAME: localhost
+      PROXY_WORKER_URL: http://integration-worker:9000
+      PROXY_PLUGIN_SERVER_URL: http://integration-plugin-server:8000
+      PROXY_KEEPALIVE_TIMEOUT: 600s
+    ports:
+      - 80:80
 
 volumes:
   package-files-volume:

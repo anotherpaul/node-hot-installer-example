@@ -1,5 +1,5 @@
 {
-  "name": "package-loader",
+  "name": "plugin-frankfurter",
   "version": "1.0.0",
   "description": "",
   "main": "./src/index.js",
@@ -41,9 +41,6 @@
     "printWidth": 120
   },
   "dependencies": {
-    "express": "^4.17.1",
-    "hot-installer": "0.0.2",
-    "ioredis": "^4.14.1",
     "request": "^2.88.0",
     "request-promise": "^4.2.5"
   }
