@@ -12,7 +12,7 @@ docker-compose up -d --build
 
 ```
 cd ./plugin-rates-apiexchange
-npm pack
+npm i --production && pack
 ```
 
 4. Upload the plugin in UI by choosing the file and entering 'plugin-apiexchange' in the 'Plugin name' field
@@ -23,7 +23,7 @@ npm pack
 
 ```
 cd ./plugin-rates-frankfurter
-npm pack
+npm i --production && pack
 ```
 
 7. Upload the plugin in UI by choosing the file and entering 'plugin-apiexchange' in the 'Plugin name' field

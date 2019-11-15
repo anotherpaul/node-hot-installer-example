@@ -101,7 +101,13 @@ function App() {
             </Form.Control>
           </Form.Group>
         </Form.Row>
-        {isLoading ? <Spinner animation="border" /> : <Button onClick={runCommand}>Run</Button>}
+        {isLoading ? (
+          <Spinner animation="border" />
+        ) : (
+          <Button disabled={!selectedPluginName} onClick={runCommand}>
+            Run
+          </Button>
+        )}
       </Form>
       {rate && url ? (
         <Row>

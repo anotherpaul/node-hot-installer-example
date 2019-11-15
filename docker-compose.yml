@@ -9,7 +9,7 @@ services:
     image: integration-plugin-server:latest
     build: ./integration-plugin-server
     volumes:
-      - package-files-volume:/package-files
+      - ./@volumes/package-files:/package-files
     environment:
       SERVER_INSTANCE_COUNT: 2
       SERVER_PORT: 8000
@@ -20,7 +20,7 @@ services:
     image: integration-worker:latest
     build: ./integration-worker
     volumes:
-      - packages-volume:/packages
+      - ./@volumes/packages:/packages
     environment:
       SERVER_INSTANCE_COUNT: 4
       SERVER_PORT: 9000
@@ -37,7 +37,3 @@ services:
       PROXY_KEEPALIVE_TIMEOUT: 600s
     ports:
       - 80:80
-
-volumes:
-  package-files-volume:
-  packages-volume:
