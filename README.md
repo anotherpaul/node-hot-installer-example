@@ -11,7 +11,7 @@ docker-compose up -d --build
 3. Create package for the first plugin
 
 ```
-cd ./plugin-rates-apiexchange
+cd ./plugin-apiexchange
 npm i --production && pack
 ```
 
@@ -22,7 +22,7 @@ npm i --production && pack
 6. Create package for the second plugin
 
 ```
-cd ./plugin-rates-frankfurter
+cd ./plugin-frankfurter
 npm i --production && pack
 ```
 
